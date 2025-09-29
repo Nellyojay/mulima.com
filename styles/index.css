@@ -97,9 +97,8 @@ nav a:hover {
 .hero {
   background:linear-gradient(#0000008a), url('../images/granary.png') no-repeat center/cover ;
   color: var(--white);
-  height: 90vh;
+  height: 100vh;
   padding: 150px 30px;
-  
 }
 
 @media (max-width: 800px) {
