@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Login/Sign up</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    :root {
+      --primary: #27ae60;
+      --primary-dark: #1e8449;
+      --secondary: #2c3e50;
+      --light: #f5f7fa;
+      --white: #ffffff;
+      --background: #09241432;
+      --color: #252525;
+      --muted: #999999;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+
+      @media (max-width:800px) {
+        font-size: 1rem;
+      }
+    }
+    body {
+      background: var(--secondary);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 110vh;
+      font-size: 1.3rem;
+
+      @media (max-width:800px) {
+        margin: 50px;
+        display: block;
+      }
+
+      header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h1 a {
+          font-size: 2rem;
+          text-decoration: none;
+          letter-spacing: 5px;
+          color: var(--white);
+          border: solid var(--muted) 2px;
+          padding: 5px 20px 5px 20px;
+          border-radius: 10px;
+        }
+
+        p{
+          margin-top: 10px;
+          color: rgb(73, 73, 73);
+          font-size: large;
+          color: var(--light);
+
+          @media (max-width: 500px) {
+            font-size: 0.8rem;
+          }
+        }
+      }
+
+      .login {
+        background: var(--light);
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: #000000cc 1px 1px 30px 1px ;
+        color: var(--color);
+        width: 500px;
+        
+
+        .welcome {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          color: var(--secondary);
+
+          h2 {
+            font-size: 1.3rem;
+          }
+
+          p{
+            font-size: 1rem;
+            margin-bottom: 20px;
+
+            @media (max-width:500px) {
+              font-size: 0.7rem;
+            }
+          }
+        }
+        
+        @media (max-width:800px) {
+          width: 90%;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
+
+          .input{
+            display: inherit;
+            flex-direction: column;
+
+            input {
+              border: solid #80808088 1px;
+              border-radius: 5px;
+              max-width: auto;
+              height: 30px;
+              font-size: large;
+              padding-inline: 5px;
+            }
+          }
+
+          button {
+            border: none;
+            background: var(--primary-dark);
+            border-radius: 5px;
+            color: var(--light);
+            padding: 10px;
+            font-size: 1rem;
+          }
+
+          p {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+          }
+
+          #sign-up {
+            font-weight: bold;
+            color: var(--primary-dark);
+            cursor: pointer;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="content js-content">
+    <header>
+      <h1><a href="index.html">MULIMA</a></h1>
+      <p>Your Premium Food Management Platform</p>
+    </header>
+  
+    <div class="login">
+      <div class="welcome">
+        <h2>Welcome</h2>
+        <p>Enter your credentials to acces your account</p>
+      </div>
+
+      <form>
+        <div id="firstname" class="input">
+          <label for="first-name">First name</label>
+          <input id="first-name" type="text" autocomplete="family-name" placeholder="Don..." required>
+        </div>
+        
+        <div id="lastname" class="input">
+          <label for="last-name">Last name</label>
+          <input id="last-name" type="text" autocomplete="given-name" placeholder="Jon..." required>
+        </div>
+
+        <div class="input">
+          <label for="email">Email</label>
+          <input id="email" type="text" autocomplete="email" placeholder="demo@mulima.com..." required>
+        </div>
+
+        <div class="input">
+          <label for="password">Create Password</label>
+          <input id="password" type="password" autocomplete="new-password" placeholder="New password" required>
+        </div>
+
+        <div class="input">
+          <label for="new-password">Confirm Password</label>
+          <input id="new-password" type="password" autocomplete="new-password" placeholder="New password" required>
+        </div>
+
+        <p style="font-size: smaller; color: #ff0000d6;"> ~This is a demo sign up so no data shall be saved.</p>
+        <button id="js-signup-btn" class="js-signup-btn" type="submit">Sign up</button>
+        <p>
+          Have an account? 
+          <a 
+            id="sign-up" 
+            href="login.html"
+          >Log in</a>
+        </p>
+      </form>
+    </div>
+  </div>
+  
+  <script src="../scripts/signup.js" type="module"></script>
+</body>
+</html>

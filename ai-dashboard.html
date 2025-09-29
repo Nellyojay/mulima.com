@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>FOODVAULT — Dashboard Clone</title>
+  <link rel="stylesheet" href="ai-dashboard.css">
+</head>
+<body>
+  <div class="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="brand">
+        <div class="logo">FV</div>
+        <div>
+          <h3>FOODVAULT</h3>
+          <p>Food security & savings</p>
+        </div>
+      </div>
+
+      <div class="small">
+        <p>Logged in as <strong id="mini-user">—</strong></p>
+        <p ><a href="" class="menu-toggle">MENU</a></p>
+      </div>
+
+      <nav class="nav nav-links" aria-label="Sidebar"></nav>
+
+      
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main" role="main">
+      <div class="topbar">
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#9fb1c3" xmlns="http://www.w3.org/2000/svg"><path d="M21 21L15.8 15.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <input type="search" placeholder="Search transactions, partners..." id="search">
+        </div>
+        <div class="user">
+          <div class="avatar" id="avatar">A</div>
+          <div style="text-align:right">
+            <div id="userFullName" style="font-weight:700">Loading...</div>
+            <div style="font-size:12px;color:var(--muted)" id="userEmailMini">.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <section class="grid">
+        <div class="card points-card">
+          <div class="points-summary">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:white;font-size:20px">P</div>
+              <div>
+                <h2>Points Balance</h2>
+                <div class="points-value" id="pointsValue">0</div>
+                <div style="color:var(--muted);font-size:13px">Equivalent: <span id="equiv">UGX 0</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px">
+            <div class="points-actions">
+              <button class="btn" id="addPointsBtn">Add +</button>
+              <button class="btn ghost" id="redeemBtn">Redeem</button>
+            </div>
+            <div style="font-size:13px;color:var(--muted)">Member since <strong id="memberSince">—</strong></div>
+          </div>
+        </div>
+
+        <div class="card mini">
+          <div class="label">Monthly saved</div>
+          <div class="big" id="monthlySaved">UGX 0</div>
+          <small class="label">Progress: <span id="progress">0%</span></small>
+        </div>
+
+        <div class="card mini">
+          <div class="label">Redeemable value</div>
+          <div class="big" id="redeemable">UGX 0</div>
+          <small class="label">Partners: <strong id="partnersCount">0</strong></small>
+        </div>
+
+        <!-- activity log -->
+        <div class="card history" style="grid-column: span 3;">
+          <h3 style="margin:0 0 10px 0">Recent activity</h3>
+          <div id="historyContainer">
+            <!-- transactions injected here -->
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    /***********************
+     * Simple dashboard logic
+     * - Uses localStorage for demo user & points
+     ***********************/
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navLinks = document.querySelector(".nav-links");
+
+      menuToggle.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        let html = '';
+
+        html = `
+          <a href="#" class="active" data-section="overview">Overview</a>
+          <a href="#" data-section="points">Points</a>
+          <a href="#" data-section="redeem">Redeem</a>
+          <a href="#" data-section="partners">Partners</a>
+          <a href="#" data-section="settings">Settings</a>
+        `;
+
+        if (navLinks.innerHTML === '') {
+          navLinks.innerHTML = html
+        } else {
+          navLinks.innerHTML = '';
+        }
+      });
+
+    // helper: format currency (UGX)
+    function ugx(n){ return 'UGX ' + Number(n).toLocaleString(); }
+
+    // sample user load or create
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+    let allUsers = JSON.parse(localStorage.getItem('personalDetails')) || [];
+
+    if(!currentUser){
+      // create demo user if none
+      currentUser = {
+        firstName: "Don",
+        lastName: "Jon",
+        email: "donjon@foodvault.local",
+        points: 1200,
+        savingsUGX: 60000,
+        history: [
+          {type:'credit', note:'Account created', amount:1200, date: daysAgo(6)},
+          {type:'credit', note:'Saved UGX 5,000', amount:100, date: daysAgo(4)},
+          {type:'redeem', note:'Redeemed groceries', amount:-200, date: daysAgo(2)}
+        ],
+        memberSince: (new Date()).toLocaleDateString()
+      };
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      // push to personalDetails if absent
+      if(!allUsers.some(u=>u.email===currentUser.email)) {
+        allUsers.push(currentUser);
+        localStorage.setItem('personalDetails', JSON.stringify(allUsers));
+      }
+    }
+
+    // DOM refs
+    const userFullName = document.getElementById('userFullName');
+    const userEmailMini = document.getElementById('userEmailMini');
+    const avatar = document.getElementById('avatar');
+    const miniUser = document.getElementById('mini-user');
+    const pointsValue = document.getElementById('pointsValue');
+    const equiv = document.getElementById('equiv');
+    const memberSince = document.getElementById('memberSince');
+    const historyContainer = document.getElementById('historyContainer');
+    const monthlySaved = document.getElementById('monthlySaved');
+    const progress = document.getElementById('progress');
+    const redeemable = document.getElementById('redeemable');
+    const partnersCount = document.getElementById('partnersCount');
+
+    // initialize UI
+    function renderUser(){
+      userFullName.textContent = currentUser.firstName + ' ' + currentUser.lastName;
+      userEmailMini.textContent = currentUser.email;
+      avatar.textContent = currentUser.firstName.charAt(0).toUpperCase();
+      miniUser.textContent = currentUser.firstName;
+
+      pointsValue.textContent = currentUser.points;
+      equiv.textContent = ugx(currentUser.points * 50); // sample rate: 1 point = UGX 50
+      memberSince.textContent = currentUser.memberSince;
+
+      monthlySaved.textContent = ugx(currentUser.savingsUGX || 0);
+      progress.textContent = Math.min(100, Math.round((currentUser.savingsUGX || 0) / 100000 * 100)) + '%';
+      redeemable.textContent = ugx((currentUser.points || 0) * 50);
+      partnersCount.textContent = 12;
+
+      renderHistory();
+    }
+
+    // render history entries
+    function renderHistory(){
+      historyContainer.innerHTML = '';
+      const list = document.createElement('div');
+      (currentUser.history || []).slice().reverse().forEach(tx=>{
+        const row = document.createElement('div');
+        row.className = 'tx';
+        const left = document.createElement('div');
+        left.innerHTML = `<div style="font-weight:700">${tx.note}</div><small>${tx.date}</small>`;
+        const right = document.createElement('div');
+        right.style.textAlign='right';
+        right.innerHTML = `<div style="font-weight:800;color:${tx.amount>0? 'var(--accent)':'#e74c3c'}">${tx.amount>0? '+'+tx.amount:tx.amount}</div><small>${tx.type}</small>`;
+        row.appendChild(left);
+        row.appendChild(right);
+        list.appendChild(row);
+      });
+      historyContainer.appendChild(list);
+    }
+
+    // chart: very small sparkline using canvas
+    // function renderChart(){
+    //   const canvas = document.getElementById('pointsChart');
+    //   const ctx = canvas.getContext('2d');
+    //   ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    //   // derive simple dataset from history
+    //   const points = [0];
+    //   let running = 1000;
+    //   const h = (currentUser.history || []).slice().reverse();
+    //   h.forEach(tx => {
+    //     running += tx.amount;
+    //     points.push(running);
+    //   });
+    //   // normalize
+    //   const max = Math.max(...points);
+    //   const min = Math.min(...points);
+    //   const pad = 10;
+    //   const W = canvas.width - pad*2;
+    //   const H = canvas.height - pad*2;
+
+    //   ctx.lineWidth = 3;
+    //   ctx.strokeStyle = '#27ae60';
+    //   ctx.beginPath();
+    //   points.forEach((v,i)=>{
+    //     const x = pad + (i/(points.length-1||1))*W;
+    //     const y = pad + H - ((v - min)/(max - min || 1))*H;
+    //     if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    //   });
+    //   ctx.stroke();
+
+    //   // gradient fill
+    //   const grad = ctx.createLinearGradient(0,0,0,canvas.height);
+    //   grad.addColorStop(0, 'rgba(39,174,96,0.12)');
+    //   grad.addColorStop(1, 'rgba(39,174,96,0)');
+    //   ctx.fillStyle = grad;
+    //   ctx.lineTo(pad + W, pad + H);
+    //   ctx.lineTo(pad, pad + H);
+    //   ctx.closePath(); ctx.fill();
+    // }
+
+    // utilities
+    function daysAgo(n){
+      const d = new Date(); 
+      d.setDate(d.getDate()-n);
+      return d.toLocaleDateString();
+    }
+
+    // actions: add / redeem points (demo)
+    document.getElementById('addPointsBtn').addEventListener('click', ()=>{
+      const amount = Number(prompt('Add how many points?', '100')) || 0;
+      if(amount <= 0) return;
+      currentUser.points += amount;
+      currentUser.savingsUGX = (currentUser.savingsUGX || 0) + (amount * 50);
+      (currentUser.history = currentUser.history || []).push({type:'credit', note:`Added ${amount} points`, amount: amount, date: new Date().toLocaleDateString()});
+      saveUser();
+      renderUser();
+      alert('Points added ✓');
+    });
+
+    document.getElementById('redeemBtn').addEventListener('click', ()=>{
+      const amount = Number(prompt('Redeem how many points?', '200')) || 0;
+      if(amount <= 0 || amount > currentUser.points){ alert('Invalid redeem amount'); return; }
+      currentUser.points -= amount;
+      currentUser.savingsUGX = Math.max(0, (currentUser.savingsUGX || 0) - (amount * 50));
+      (currentUser.history = currentUser.history || []).push({type:'redeem', note:`Redeemed ${amount} points`, amount: -amount, date: new Date().toLocaleDateString()});
+      saveUser();
+      renderUser();
+      alert('Redeemed ✓');
+    });
+
+    // quick search (filter history)
+    document.getElementById('search').addEventListener('input', (e)=>{
+      const q = e.target.value.trim().toLowerCase();
+      if(!q){ renderHistory(); return; }
+      const filtered = (currentUser.history||[]).filter(tx => (tx.note+tx.date+tx.type).toLowerCase().includes(q));
+      historyContainer.innerHTML = '';
+      const list = document.createElement('div');
+      filtered.slice().reverse().forEach(tx=>{
+        const row = document.createElement('div');
+        row.className = 'tx';
+        row.innerHTML = `<div><div style="font-weight:700">${tx.note}</div><small>${tx.date}</small></div>
+                         <div style="text-align:right"><div style="font-weight:800;color:${tx.amount>0? 'var(--accent)':'#e74c3c'}">${tx.amount>0? '+'+tx.amount:tx.amount}</div><small>${tx.type}</small></div>`;
+        list.appendChild(row);
+      });
+      historyContainer.appendChild(list);
+    });
+
+    // save user to localStorage and update global list
+    function saveUser(){
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      // update in personalDetails too
+      allUsers = JSON.parse(localStorage.getItem('personalDetails')) || [];
+      const idx = allUsers.findIndex(u=>u.email===currentUser.email);
+      if(idx > -1) { allUsers[idx] = currentUser; }
+      else allUsers.push(currentUser);
+      localStorage.setItem('personalDetails', JSON.stringify(allUsers));
+    }
+
+    // initial render
+    renderUser();
+
+    // sidebar nav (simple)
+    document.querySelectorAll('.nav a').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        document.querySelectorAll('.nav a').forEach(x => x.classList.remove('active'));
+        a.classList.add('active');
+      });
+    });
+
+  </script>
+</body>
+</html>

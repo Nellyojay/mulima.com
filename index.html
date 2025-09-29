@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mulima – Your Future Meal</title>
+  <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+  <header>
+    <h1>
+      <a href="index.html">MULIMA</a>
+    </h1>
+    <nav>
+      <a href="#how">How It Works</a>
+      <a href="#benefits">Benefits</a>
+      <a href="#join">Join Now</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h2>Your Premium Food Management Platform</h2>
+    <p>Mulima connects farmers and consumers in a revolutionary marketplace <br>
+      Where you can invest, save, and access fresh African produce in the future <br>
+      Using points-based rewards.</p>
+    <button onclick="scrollToJoin()">Get Started</button>
+    
+  </div>
+
+  <!-- How It Works -->
+  <section id="how">
+    <h2>How Mulima Works</h2>
+    <div class="steps">
+      <div class="card">
+        <h3>1. Save Periodically</h3>
+        <p>Deposit small amounts daily, weekly, or monthly into your Mulima account.</p>
+      </div>
+      <div class="card">
+        <h3>2. Earn Points</h3>
+        <p>Every deposit earns you food points that grow with your savings.</p>
+      </div>
+      <div class="card">
+        <h3>3. Redeem Groceries</h3>
+        <p>Use your points to buy groceries and essentials from our trusted partners.</p>
+      </div>
+      <div class="card account">
+        <h3>4. Create an Account to Get Started</h3>
+        <p><a href="#join">Sign up</a> and create an account. Make your first deposit and save points for your future healthy meal</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section id="benefits">
+    <h2>Why Choose Mulima?</h2>
+    <div class="benefits">
+      <div class="card">
+        <h3>Food Security</h3>
+        <p>Never worry about food shortages. Your vault guarantees access when you need it.</p>
+      </div>
+      <div class="card">
+        <h3>Inflation Protection</h3>
+        <p>Lock in food savings today to stay protected against rising food prices tomorrow.</p>
+      </div>
+      <div class="card">
+        <h3>Trusted Partners</h3>
+        <p>Redeem groceries from supermarkets, shops, and food suppliers in our network.</p>
+      </div>
+      <div class="card">
+        <h3>Flexible & Simple</h3>
+        <p>Save small amounts at your own pace with instant redemption when you need food.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section id="join" class="cta">
+    <h2>Start Your Mulima Journey Today</h2>
+    <p>Join thousands securing their food future with savings that feed you back.</p>
+    <button class="js-signup-now-btn">Sign Up Now</button>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Mulima. All rights reserved.</p>
+    <p>
+      <a href="#">Facebook</a> | 
+      <a href="#">Twitter</a> | 
+      <a href="#">Instagram</a>
+    </p>
+  </footer>
+
+  <script>
+    function scrollToJoin() {
+      document.getElementById("join").scrollIntoView({ behavior: "smooth" });
+    }
+
+    document.querySelector('.js-signup-now-btn')
+      .addEventListener('click', () => {
+        window.location.href = 'signup.html'
+      })
+  </script>
+</body>
+</html>

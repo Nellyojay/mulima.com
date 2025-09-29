@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+  --primary: #27ae60;
+  --primary-dark: #1e8449;
+  --secondary: #2c3e50;
+  --muted: #999999;
+  --light: #f5f7fa;
+  --white: #ffffff;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom right, #0f6744, #905e07);
+}
+
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+header{
+  padding: 20px;
+  margin: auto;
+
+  a {
+    text-decoration: none;
+    color: var(--light);
+    font-weight: bolder;
+    letter-spacing: 5px;
+    background: var(--primary);
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  a:hover {
+    background-color: var(--primary-dark);
+  }
+}
+
+.dp {
+  border: solid 1px var(--muted);
+  width: 100px;
+  height: 100px;
+  padding: 80px;
+  border-radius: 50%;
+  background: var(--secondary);
+  color: var(--muted);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 1px 1px 10px black;
+}
+
+.add-photo {
+  background: var(--muted);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-top: -40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  box-shadow: 1px 1px 10px black;
+  cursor: pointer;
+
+  @media (max-width: 800px) {
+    width: 50px;
+    height: 50px;
+    margin-top: -30px;
+  }
+}
+
+.bio {
+  border: solid 1px var(--muted);
+  margin: 20px;
+  padding: 20px;
+  color: var(--light);
+  border-radius: 20px;
+  background: #ffffff82;
+  width: 50%;
+  box-shadow: 1px 1px 20px black;
+
+  @media (max-width: 800px) {
+    width: 80%;
+  }
+
+  p {
+    border: solid 1px var(--muted);
+    padding: 10px;
+    border-radius: 10px;
+    background: #2c3e50bb;
+    font-size: 1.3rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--light);
+  }
+
+  h3 {
+    display: flex;
+    justify-content: end;
+  }
+
+  .logout {
+    color: rgb(253, 129, 129);
+  }
+}
