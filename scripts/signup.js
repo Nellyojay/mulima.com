@@ -31,6 +31,7 @@ if (btn) {
 
     document.querySelector("form").reset();
     alert('Succes. Redirecting to log in page.')
+    window.location.href = 'login.html'
   })
 }
 
