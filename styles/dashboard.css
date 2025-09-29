@@ -183,6 +183,10 @@ h2{
     padding-inline: 10px;
   }
 
+  .merchant {
+    display: none;
+  }
+
   .deposit-input {
     display: none;
   }

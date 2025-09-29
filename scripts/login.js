@@ -8,6 +8,7 @@ document.querySelector('.js-login-btn')
     } else if (password.value !== '2') {
       alert('Wrong password')
     } else {
+      alert('Succes. Please press OK to continue')
       window.location.href = 'dashboard.html'
     }
   })
