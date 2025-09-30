@@ -178,6 +178,8 @@ h2{
 
   input {
     width: 160px;
+    height: 40px;
+    margin: 5px;
     border: none;
     border-radius: 10px;
     padding-inline: 10px;
@@ -220,6 +222,7 @@ h2{
   color:var(--light);
   font-weight: 700;
   cursor: pointer;
+  height: 40px;
 }
 
 .redeemBtn {
