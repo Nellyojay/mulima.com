@@ -13,6 +13,7 @@
 * {
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -21,7 +22,6 @@ body {
   background: #f9f9f9;
   color: #333;
   padding-top: 70px; /* space for sticky navbar */
-  scroll-behavior: smooth;
 }
 
 /* Sticky Navbar */
