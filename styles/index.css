@@ -227,7 +227,7 @@ nav a:hover {
     border-radius: 10px;
     box-shadow: -1px 1px 10px #8080803b;
     padding-block: 20px;
-    width: 80%;
+    width: 95%;
 
     .content {
       border: solid 1px #8080803b;
@@ -264,6 +264,13 @@ section h2 {
   margin-bottom: 2rem;
   font-size: 2rem;
   color: var(--secondary);
+}
+
+.know-more {
+  text-align: center;
+  columns: var(--secondary);
+  margin-top: 30px;
+  font-size: 1.5rem;
 }
 
 .steps, .benefits {

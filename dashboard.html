@@ -40,7 +40,7 @@
     <div class="card" style="display: flex; gap: 10px; justify-content: space-around;">
       <div class="card account">
         <h3 id="userFullName">Loading...</h3>
-        <p><strong>Account Type:</strong> DEMO</p>
+        <p><strong>Account Type:</strong> DEMO SAVINGS ACCOUNT</p>
       </div>
 
       <div class="card account">
@@ -97,18 +97,43 @@
     </div>
 
     <div class="card">
-      <h3>Trading Objectives</h3>
-      <div class="objective">
-        <p><strong>Daily Loss Limit:</strong> <br> Max: <strong>$200</strong> <br> Current: <strong>$0</strong> <span class="badge ongoing">Ongoing</span></p>
-      </div>
-      <div class="objective">
-        <p><strong>Maximum Loss Limit:</strong> <br> Max: <strong>$200</strong> <br> Current: <strong>$0</strong> <span class="badge ongoing">Ongoing</span></p>
-      </div>
-      <div class="objective">
-        <p><strong>Minimum Trading Days:</strong> <br> Minimum: <strong>5</strong> <br> Current: <strong>5</strong> <span class="badge passed">Passed</span></p>
-      </div>
-      <div class="objective">
-        <p><strong>Profit Target:</strong> <br> Minimum: <strong>$200</strong> <br> Current: <strong>$59</strong> <span class="badge ongoing">Ongoing</span></p>
+      <h3>Farm Produce for Sale</h3>
+      <div class="produce-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px;">
+        <!-- Item 1 -->
+        <div class="objective" style="display:flex;flex-direction:column;align-items:stretch;">
+          <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=60" alt="Tomatoes" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
+          <div style="flex:1">
+            <p style="margin:0 0 6px 0;font-weight:700">Fresh Tomatoes</p>
+            <p style="margin:0;font-size:13px">Price: <strong>120 pts</strong> <small style="color:var(--muted)"> (UGX 60,000)</small></p>
+            <p style="margin:6px 0 0 0;font-size:13px">Available: <strong>3 days</strong></p>
+            <p style="margin:6px 0 0 0;font-size:13px">Buy from: <strong>Nakawa Farmers Market - Stall 12</strong></p>
+          </div>
+          <button class="btn" style="margin-top:8px" onclick="alert('To buy Fresh Tomatoes: spend 120 pts. Ensure you have enough points.')">BUY (120 pts)</button>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="objective" style="display:flex;flex-direction:column;align-items:stretch;">
+          <img src="https://5.imimg.com/data5/BY/BR/MY-43969551/karpuram-banana-500x500.png" alt="Bananas" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
+          <div style="flex:1">
+            <p style="margin:0 0 6px 0;font-weight:700">Ripe Bananas (bunch)</p>
+            <p style="margin:0;font-size:13px">Price: <strong>45 pts</strong> <small style="color:var(--muted)"> (UGX 22,500)</small></p>
+            <p style="margin:6px 0 0 0;font-size:13px">Available: <strong>1 week</strong></p>
+            <p style="margin:6px 0 0 0;font-size:13px">Buy from: <strong>Lubowa Agro Hub - Booth 3</strong></p>
+          </div>
+          <button class="btn" style="margin-top:8px;background:#3a70ce" onclick="alert('To buy Bananas: spend 45 pts.')">BUY (45 pts)</button>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="objective" style="display:flex;flex-direction:column;align-items:stretch;">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBpXGP1_dboctdp3cJNY3G3o2OEiO1u2VyW4QhUVOK3wDVe7mD0qj2O0fk6pA8MtxIkbE&usqp=CAU" alt="Maize" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
+          <div style="flex:1">
+            <p style="margin:0 0 6px 0;font-weight:700">Dried Maize (10kg)</p>
+            <p style="margin:0;font-size:13px">Price: <strong>350 pts</strong> <small style="color:var(--muted)"> (UGX 175,000)</small></p>
+            <p style="margin:6px 0 0 0;font-size:13px">Available: <strong>2 weeks</strong></p>
+            <p style="margin:6px 0 0 0;font-size:13px">Buy from: <strong>Gawaya Grain Store - Delivery available</strong></p>
+          </div>
+          <button class="btn" style="margin-top:8px;background:rgba(255,166,0,0.85)" onclick="alert('To buy Dried Maize: spend 350 pts.')">BUY (350 pts)</button>
+        </div>
       </div>
     </div>
     
