@@ -21,6 +21,10 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 800px) {
+    height: 115vh;
+  }
 }
 
 header{
@@ -35,6 +39,10 @@ header{
     background: var(--primary);
     padding: 15px;
     border-radius: 10px;
+
+    @media (max-width: 800px) {
+      letter-spacing: 3px;
+    }
   }
 
   a:hover {
