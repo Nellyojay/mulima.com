@@ -137,7 +137,7 @@ depositBtn.addEventListener('click', () => {
 
   if (amountAdded > 0) {
     currentUser.savingsUGX += amountAdded;
-    currentUser.points = Math.round(currentUser.savingsUGX / 500);
+    currentUser.points = Number(currentUser.savingsUGX / 500);
 
     currentUser.history = currentUser.history || [];
     currentUser.history.push({
@@ -147,6 +147,10 @@ depositBtn.addEventListener('click', () => {
       currency: 'UGX',
       date: new Date().toLocaleDateString()
     });
+
+    const message = amountAdded/500
+
+    alert(`You have added ${message} PTS`)
 
     saveToStorage();
     renderHistory();
@@ -188,7 +192,7 @@ payBtn.addEventListener('click', () => {
   if (pointsSpent > 0 && pointsSpent <= (currentUser.points || 0)) {
     const ugxDeduct = pointsSpent * 500;
     currentUser.savingsUGX -= ugxDeduct;
-    currentUser.points = Math.round(currentUser.savingsUGX / 500);
+    currentUser.points = Number(currentUser.savingsUGX / 500);
 
     currentUser.history = currentUser.history || [];
     currentUser.history.push({
@@ -213,10 +217,8 @@ redeemBtn.addEventListener('click', () => {
 })
 
 pointsValue.textContent = currentUser.points;
-equiv.textContent = ugx(currentUser.points * 500); // sample rate: 1 point = UGX 50
+equiv.textContent = ugx(currentUser.points * 500); // sample rate: 1 point = UGX 500
 memberSince.textContent = currentUser.memberSince;
-
-
 
 // monthlySaved.textContent = ugx(currentUser.savingsUGX || 0);
 // progress.textContent = Math.min(100, Math.round((currentUser.savingsUGX || 0) / 100000 * 100)) + '%';
