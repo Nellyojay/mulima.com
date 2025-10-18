@@ -37,12 +37,13 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 110vh;
+      height: 120vh;
       font-size: 1.3rem;
 
       @media (max-width:800px) {
-        margin: 50px;
+        margin: 20px;
         display: block;
+        height: 100vh;
       }
 
       header {
@@ -72,15 +73,13 @@
         }
       }
 
-      .login {
+      .signup {
         background: var(--light);
         margin-top: 20px;
         padding: 20px;
         border-radius: 10px;
         box-shadow: #000000cc 1px 1px 30px 1px ;
         color: var(--color);
-        width: 500px;
-        
 
         .welcome {
           display: flex;
@@ -100,10 +99,6 @@
               font-size: 0.7rem;
             }
           }
-        }
-        
-        @media (max-width:800px) {
-          width: 90%;
         }
 
         form {
@@ -159,34 +154,34 @@
       <p>Your Premium Food Management Platform</p>
     </header>
   
-    <div class="login">
+    <div class="signup">
       <div class="welcome">
         <h2>Welcome</h2>
         <p>Enter your credentials to acces your account</p>
       </div>
 
       <form>
-        <div id="firstname" class="input">
+        <div id="firstname" class="input" inert>
           <label for="first-name">First name</label>
           <input id="first-name" type="text" autocomplete="family-name" placeholder="Don..." required>
         </div>
         
-        <div id="lastname" class="input">
+        <div id="lastname" class="input" inert>
           <label for="last-name">Last name</label>
           <input id="last-name" type="text" autocomplete="given-name" placeholder="Jon..." required>
         </div>
 
-        <div class="input">
+        <div class="input" inert>
           <label for="email">Email</label>
           <input id="email" type="text" autocomplete="email" placeholder="demo@mulima.com..." required>
         </div>
 
-        <div class="input">
+        <div class="input" inert>
           <label for="password">Create Password</label>
           <input id="password" type="password" autocomplete="new-password" placeholder="New password" required>
         </div>
 
-        <div class="input">
+        <div class="input" inert>
           <label for="new-password">Confirm Password</label>
           <input id="new-password" type="password" autocomplete="new-password" placeholder="New password" required>
         </div>

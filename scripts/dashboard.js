@@ -1,7 +1,7 @@
 document.querySelector('.footer-date')
   .innerHTML = `<strong>${new Date().getFullYear()}</strong>`
 
-window.toggleSidebar = toggleSidebar
+window.toggleSidebar = toggleSidebar;
 function toggleSidebar(){
   const sb = document.getElementById("sidebar");
   const ov = document.getElementById("overlay");

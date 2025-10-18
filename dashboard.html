@@ -53,15 +53,15 @@
     <div class="card points-card">
       <div class="points-summary">
         <div style="display:flex;align-items:center;gap:12px">
-          <div>
+          <div style="display: flex;flex-direction: column;align-items: center;">
             <h2>Total Points Balance</h2>
             <div class="points-value" id="pointsValue">0</div>
-            <div style="color:var(--muted);font-size:13px">Equivalent: <span id="equiv">UGX 0</span></div>
+            <div class="equiv" style="color:var(--muted);font-size:13px">Equivalent: <span id="equiv">UGX 0</span></div>
           </div>
         </div>
       </div>
 
-      <div class="add-redeem">
+      <div class="add-spend-redeem">
         <div class="points-actions">
           <button class="btn" id="addPointsBtn">ADD PTS</button>
           <div>
@@ -78,7 +78,10 @@
 
           <button class="btn redeemBtn" id="redeemBtn">REDEEM PTS</button>
         </div>
-        <div style="font-size:13px;color:var(--muted)">Member since <strong id="memberSince">—</strong></div>
+
+        <div style="font-size:13px;color:var(--muted)">
+          Member since <strong id="memberSince">—</strong>
+        </div>
       </div>
     </div>
 
@@ -112,7 +115,7 @@
             <p style="margin:6px 0 0 0;font-size:13px">Available: <strong>3 days</strong></p>
             <p style="margin:6px 0 0 0;font-size:13px">Buy from: <strong>Nakawa Farmers Market - Stall 12</strong></p>
           </div>
-          <button class="btn" style="margin-top:8px" onclick="alert('To buy Fresh Tomatoes: spend 120 pts. Ensure you have enough points.')">BUY</button>
+          <button class="btn" style="margin-top:8px; max-width: 100%;" onclick="alert('To buy Fresh Tomatoes: spend 120 pts. Ensure you have enough points.')">BUY</button>
         </div>
 
         <!-- Item 2 -->
@@ -124,7 +127,7 @@
             <p style="margin:6px 0 0 0;font-size:13px">Available: <strong>1 week</strong></p>
             <p style="margin:6px 0 0 0;font-size:13px">Buy from: <strong>Lubowa Agro Hub - Booth 3</strong></p>
           </div>
-          <button class="btn" style="margin-top:8px;background:#3a70ce" onclick="alert('To buy Bananas: spend 45 pts.')">BUY</button>
+          <button class="btn" style="margin-top:8px;background:#3a70ce; max-width: 100%;" onclick="alert('To buy Bananas: spend 45 pts.')">BUY</button>
         </div>
 
         <!-- Item 3 -->
@@ -136,7 +139,7 @@
             <p style="margin:6px 0 0 0;font-size:13px">Available: <strong>2 weeks</strong></p>
             <p style="margin:6px 0 0 0;font-size:13px">Buy from: <strong>Gawaya Grain Store - Delivery available</strong></p>
           </div>
-          <button class="btn" style="margin-top:8px;background:rgba(255,166,0,0.85)" onclick="alert('To buy Dried Maize: spend 350 pts.')">BUY</button>
+          <button class="btn" style="margin-top:8px;background:rgba(255,166,0,0.85); max-width: 100%;" onclick="alert('To buy Dried Maize: spend 350 pts.')">BUY</button>
         </div>
       </div>
     </div>
