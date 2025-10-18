@@ -64,7 +64,7 @@ if(!currentUser){
     history: [
       {type:'credit', note:'Account credited', amount:1200, date: daysAgo(6)},
       {type:'credit', note:'Saved UGX 5,000', amount:100, date: daysAgo(4)},
-      {type:'redeem', note:'Redeemed groceries', amount:-200, date: daysAgo(2)}
+      {type:'redeem', note:'Redeemed groceries', amount:0, date: daysAgo(2)}
     ],
     memberSince: (new Date()).toLocaleDateString()
   };
@@ -105,6 +105,7 @@ const redeemable = document.getElementById('redeemable');
 const partnersCount = document.getElementById('partnersCount');
 const statExpense = document.getElementById('statExpense');
 const statBlalnce = document.getElementById('statBalance');
+const monthlyBreakdownEl = document.getElementById('monthlyBreakdown');
 
 userFullName.textContent = currentUser.firstName + ' ' + currentUser.lastName;
 
@@ -227,6 +228,28 @@ memberSince.textContent = currentUser.memberSince;
 // miniUser.textContent = currentUser.firstName;
 renderHistory();
 
+// compute and display total points spent (sum of negative point transactions)
+function updatePointsSpentStat(){
+  const history = currentUser.history || [];
+  const totalSpent = history.reduce((acc, tx) => {
+    const amount = Number(tx.amount) || 0;
+    // treat UGX transactions separately; only count point transactions
+    const isUGX = tx.currency === 'UGX';
+    if(!isUGX && amount < 0){
+      return acc + Math.abs(amount);
+    }
+    return acc;
+  }, 0);
+
+  // Display as negative with 'pts' suffix, formatted with locale separators
+  statExpense.textContent = (totalSpent > 0 ? '-' + totalSpent.toLocaleString() : '0') + ' pts';
+  // keep the red color when there are spent points
+  statExpense.style.color = totalSpent > 0 ? 'rgb(215, 1, 1)' : 'var(--muted)';
+}
+
+// update the points spent stat right after rendering history
+updatePointsSpentStat();
+
 function daysAgo(n){
   const d = new Date(); 
   d.setDate(d.getDate()-n);
@@ -281,4 +304,49 @@ function renderHistory(){
     list.appendChild(row);
   });
   historyContainer.appendChild(list);
+  // update monthly breakdown
+  renderMonthlyPointsSpent();
+}
+
+// render monthly points spent breakdown under the history
+function renderMonthlyPointsSpent(){
+  if(!monthlyBreakdownEl) return;
+
+  const history = currentUser.history || [];
+
+  // aggregate by month-year string (e.g., "2025-10")
+  const map = {};
+
+  history.forEach(tx => {
+    // only consider POINTS debits / negative amounts
+    const isPoints = tx.currency === 'POINTS' || tx.note?.toLowerCase()?.includes('pts');
+    const amt = Number(tx.amount) || 0;
+    if(!isPoints) return;
+    if(amt >= 0) return; // we only count spent (negative)
+
+    // parse tx.date; support Date string from toLocaleDateString or ISO
+    let d;
+    try{ d = new Date(tx.date); }catch(e){ d = new Date(); }
+    if(isNaN(d)) d = new Date(tx.date.split('/').reverse().join('-'));
+    if(isNaN(d)) return;
+
+    const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2,'0');
+    map[key] = (map[key] || 0) + Math.abs(amt);
+  });
+
+  // sort keys descending (most recent first)
+  const keys = Object.keys(map).sort((a,b) => b.localeCompare(a));
+
+  if(keys.length === 0){
+    monthlyBreakdownEl.innerHTML = '<div style="color:var(--muted)">No monthly spends yet</div>';
+    return;
+  }
+
+  const rows = keys.map(k => {
+    const [year, month] = k.split('-');
+    const m = new Date(Number(year), Number(month)-1, 1).toLocaleString(undefined, { month: 'short' });
+    return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed rgba(0,0,0,0.04)"><div>${m} ${year}</div><div style="color:#e74c3c;">-${map[k].toLocaleString()} pts</div></div>`;
+  }).join('');
+
+  monthlyBreakdownEl.innerHTML = `<div style="font-weight:700;margin-bottom:6px">Points spent per month</div>` + rows;
 }
