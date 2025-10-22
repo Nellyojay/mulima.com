@@ -1,5 +1,6 @@
 import { currentUser, saveToStorage } from "./userData.js";
 import { ugx } from "./utils/money.js";
+import { renderHistory } from "./history.js";
 
 export function renderPointsCard() {
   // *POINTS CALCULATION* //
