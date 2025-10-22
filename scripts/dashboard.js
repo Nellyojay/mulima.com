@@ -32,6 +32,7 @@ const partnersCount = document.getElementById('partnersCount');
 const statExpense = document.getElementById('statExpense');
 const statBalance = document.getElementById('statBalance');
 const monthlyBreakdownEl = document.getElementById('monthlyBreakdown');
+const statRedeemed = document.getElementById('stat-redeemed');
 
 userFullName.textContent = currentUser.firstName + ' ' + currentUser.lastName;
 
@@ -197,4 +198,8 @@ function escapeHtml(s){
 }
 
 // If vault.html is open, render vaults on load
-try { renderVaultsOnPage(); } catch(e){}
+try {
+  renderVaultsOnPage();
+} catch(e){
+
+}

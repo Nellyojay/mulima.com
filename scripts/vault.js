@@ -1,23 +1,12 @@
 import { currentUser, saveToStorage } from "./userData.js";
+import { ugx } from "./utils/money.js";
+import { getVaultStats } from "./stats.js";
 
 // Lightweight vault helpers for vault.html
 (function(){
-  // helper: format currency (UGX)
-  function ugx(n){ return 'UGX ' + Number(n).toLocaleString(); }
-
-  currentUser.vaults = currentUser.vaults || [];
 
   function escapeHtml(s){
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]));
-  }
-
-  function getVaultStats(){
-    const vs = currentUser.vaults || [];
-    const totalLocked = vs.reduce((acc, v) => acc + (Number(v.currentAmount) || 0), 0);
-    const next = vs
-      .filter(v => new Date(v.unlockDate) > new Date())
-      .sort((a,b) => new Date(a.unlockDate) - new Date(b.unlockDate))[0];
-    return { totalLocked, totalVaults: vs.length, nextUnlock: next ? new Date(next.unlockDate) : null };
   }
 
   window.createVault = function({ name, targetAmount, unlockDate, initialDeposit }){

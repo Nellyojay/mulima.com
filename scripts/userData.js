@@ -7,8 +7,8 @@ let allUsers = JSON.parse(localStorage.getItem('personalDetails')) || [];
 if(!currentUser){
   // create demo user if none
   currentUser = {
-    firstName: "Don",
-    lastName: "Jon",
+    firstName: "Jon",
+    lastName: "Doe",
     email: "donjon@mulima.local",
     points: 0,
     savingsUGX: 0,
