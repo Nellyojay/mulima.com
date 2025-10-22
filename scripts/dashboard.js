@@ -50,8 +50,6 @@ updatePointsSpentStat();
    - These operate on `currentUser` and persist via saveToStorage()
    ----------------------------- */
 
-currentUser.vaults = currentUser.vaults || [];
-
 function getVaultStats(){
   const vs = currentUser.vaults || [];
   const totalLocked = vs.reduce((acc, v) => acc + (Number(v.currentAmount) || 0), 0);

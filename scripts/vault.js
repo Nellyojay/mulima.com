@@ -1,9 +1,12 @@
 import { currentUser, saveToStorage } from "./userData.js";
 import { ugx } from "./utils/money.js";
 import { getVaultStats } from "./stats.js";
+import { renderVaultSideBar } from "./utils/sidebar.js";
 
 // Lightweight vault helpers for vault.html
-(function(){
+renderVault()
+function renderVault(){
+  renderVaultSideBar();
 
   function escapeHtml(s){
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]));
@@ -19,7 +22,6 @@ import { getVaultStats } from "./stats.js";
       createdAt: new Date().toISOString(),
       status: new Date(unlockDate) <= new Date() ? 'unlocked' : 'locked'
     };
-    currentUser.vaults = currentUser.vaults || [];
     currentUser.vaults.push(v);
     saveToStorage();
     renderVaultsOnPage();
@@ -66,7 +68,7 @@ import { getVaultStats } from "./stats.js";
     if(totalVaultsEl) totalVaultsEl.textContent = getVaultStats().totalVaults;
     if(nextUnlockEl){
       const n = getVaultStats().nextUnlock;
-      nextUnlockEl.textContent = n ? n.toLocaleDateString() : '-';
+      nextUnlockEl.textContent = n ? n.toDateString() : '-';
     }
   }
 
@@ -105,7 +107,7 @@ import { getVaultStats } from "./stats.js";
     const v = currentUser.vaults.find(x => x.id === vaultId);
     if(!v) return alert('Vault not found');
     if(new Date(v.unlockDate) > new Date()){
-      return alert('This vault is still locked. You can only withdraw on or after ' + new Date(v.unlockDate).toLocaleDateString());
+      return alert('This vault is still locked. You can only withdraw on or after ' + new Date(v.unlockDate).toDateString());
     }
     const modal = document.getElementById('vaultWithdrawModal');
     if(!modal) return alert('Withdraw UI not available');
@@ -135,6 +137,10 @@ import { getVaultStats } from "./stats.js";
   }
 
   // initial render
-  try{ window.addEventListener('DOMContentLoaded', renderVaultsOnPage); }catch(e){ setTimeout(renderVaultsOnPage, 200); }
+  try {
+    window.addEventListener('DOMContentLoaded', renderVaultsOnPage);
+  } catch(e) {
+    setTimeout(renderVaultsOnPage, 200);
+  }
 
-})();
+};
