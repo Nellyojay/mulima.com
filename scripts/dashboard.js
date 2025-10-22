@@ -1,3 +1,5 @@
+import { currentUser } from "./userData.js";
+
 document.querySelector('.footer-date')
   .innerHTML = `<strong>${new Date().getFullYear()}</strong>`
 
@@ -49,38 +51,9 @@ document.querySelectorAll('#sidebar ul li').forEach(li => {
 function ugx(n){ return 'UGX ' + Number(n).toLocaleString(); }
 
 // sample user load or create
-let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
 
-let allUsers = JSON.parse(localStorage.getItem('personalDetails')) || [];
 
-if(!currentUser){
-  // create demo user if none
-  currentUser = {
-    firstName: "Don",
-    lastName: "Jon",
-    email: "donjon@mulima.local",
-    points: 0,
-    savingsUGX: 0,
-    history: [
-      {type:'credit', note:'Account credited', amount:1200, date: daysAgo(6)},
-      {type:'credit', note:'Saved UGX 5,000', amount:100, date: daysAgo(4)},
-      {type:'redeem', note:'Redeemed groceries', amount:0, date: daysAgo(2)}
-    ],
-    memberSince: (new Date()).toLocaleDateString()
-  };
-  
-  saveToStorage()
 
-  // push to personalDetails if absent
-  if(!allUsers.some(u=>u.email===currentUser.email)) {
-    allUsers.push(currentUser);
-    localStorage.setItem('personalDetails', JSON.stringify(allUsers));
-  }
-}
-
-function saveToStorage() {
-  localStorage.setItem('currentUser', JSON.stringify(currentUser));
-}
 
 // DOM refs
 const userFullName = document.getElementById('userFullName');
@@ -104,7 +77,7 @@ const progress = document.getElementById('progress');
 const redeemable = document.getElementById('redeemable');
 const partnersCount = document.getElementById('partnersCount');
 const statExpense = document.getElementById('statExpense');
-const statBlalnce = document.getElementById('statBalance');
+const statBalance = document.getElementById('statBalance');
 const monthlyBreakdownEl = document.getElementById('monthlyBreakdown');
 
 userFullName.textContent = currentUser.firstName + ' ' + currentUser.lastName;
@@ -245,12 +218,6 @@ function updatePointsSpentStat(){
 
 // update the points spent stat right after rendering history
 updatePointsSpentStat();
-
-function daysAgo(n){
-  const d = new Date(); 
-  d.setDate(d.getDate()-n);
-  return d.toLocaleDateString();
-}
 
 // render history entries
 function renderHistory(){

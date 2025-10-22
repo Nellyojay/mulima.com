@@ -1,29 +1,11 @@
+import { currentUser, saveToStorage } from "./userData.js";
+
 // Lightweight vault helpers for vault.html
 (function(){
   // helper: format currency (UGX)
   function ugx(n){ return 'UGX ' + Number(n).toLocaleString(); }
 
-  // ensure a currentUser exists in localStorage (minimal fallback)
-  let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-  if(!currentUser){
-    currentUser = { 
-      firstName: 'Demo',
-      lastName: 'User',
-      email: 'demo@mulima',
-      savingsUGX: 0,
-      points: 0,
-      history: [],
-      memberSince: new Date().toLocaleDateString(),
-      vaults: [] 
-    };
-    saveToStorage()
-  }
-
   currentUser.vaults = currentUser.vaults || [];
-
-  function saveToStorage(){
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-  }
 
   function escapeHtml(s){
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]));
