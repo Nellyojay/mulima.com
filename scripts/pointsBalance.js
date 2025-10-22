@@ -4,6 +4,31 @@ import { ugx } from "./utils/money.js";
 export function renderPointsCard() {
   // *POINTS CALCULATION* //
 
+  // DOM refs
+  const userFullName = document.getElementById('userFullName');
+  const userEmailMini = document.getElementById('userEmailMini');
+  const avatar = document.getElementById('avatar');
+  const miniUser = document.getElementById('mini-user');
+  const pointsValue = document.getElementById('pointsValue');
+  const addPointsBtn = document.getElementById('addPointsBtn');
+  const addPointsInput = document.getElementById('depositInput');
+  const depositBtn = document.getElementById('depositBtn');
+  const spendBtn = document.getElementById('spendBtn');
+  const redeemBtn = document.getElementById('redeemBtn');
+  const merchant = document.getElementById('merchant');
+  const spendInput = document.getElementById('spendInput');
+  const payBtn = document.getElementById('payBtn');
+  const equiv = document.getElementById('equiv');
+  const memberSince = document.getElementById('memberSince');
+  const historyContainer = document.getElementById('historyContainer');
+  const monthlySaved = document.getElementById('monthlySaved');
+  const progress = document.getElementById('progress');
+  const redeemable = document.getElementById('redeemable');
+  const partnersCount = document.getElementById('partnersCount');
+  const statExpense = document.getElementById('statExpense');
+  const statBalance = document.getElementById('statBalance');
+  const monthlyBreakdownEl = document.getElementById('monthlyBreakdown');
+
   //ADD
   addPointsBtn.addEventListener('click', () => {
     // Remove all buttons
