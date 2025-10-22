@@ -1,0 +1,6 @@
+# Ignore everything in the project by default
+**
+# Keep workspace and ESLint config files visible (optional)
+!.eslintrc.js
+!.eslintignore
+!.vscode/**
