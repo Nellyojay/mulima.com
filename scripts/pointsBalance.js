@@ -1,4 +1,4 @@
-import { currentUser } from "./userData.js";
+import { currentUser, saveToStorage } from "./userData.js";
 import { ugx } from "./utils/money.js";
 
 export function renderPointsCard() {
