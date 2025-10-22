@@ -6,8 +6,17 @@
   // ensure a currentUser exists in localStorage (minimal fallback)
   let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
   if(!currentUser){
-    currentUser = { firstName: 'Demo', lastName: 'User', email: 'demo@mulima', savingsUGX: 0, points: 0, history: [], memberSince: new Date().toLocaleDateString(), vaults: [] };
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    currentUser = { 
+      firstName: 'Demo',
+      lastName: 'User',
+      email: 'demo@mulima',
+      savingsUGX: 0,
+      points: 0,
+      history: [],
+      memberSince: new Date().toLocaleDateString(),
+      vaults: [] 
+    };
+    saveToStorage()
   }
 
   currentUser.vaults = currentUser.vaults || [];
