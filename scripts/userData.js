@@ -1,3 +1,5 @@
+import { daysAgo } from "./utils/dates.js";
+
 export let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
 
 let allUsers = JSON.parse(localStorage.getItem('personalDetails')) || [];
@@ -30,10 +32,4 @@ if(!currentUser){
 
 export function saveToStorage() {
   localStorage.setItem('currentUser', JSON.stringify(currentUser));
-}
-
-function daysAgo(n){
-  const d = new Date(); 
-  d.setDate(d.getDate()-n);
-  return d.toLocaleDateString();
 }
