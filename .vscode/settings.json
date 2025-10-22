@@ -1,5 +1,10 @@
 {
   "eslint.enable": false,
   "eslint.validate": [],
-  "javascript.validate.enable": false
+  "javascript.validate.enable": false,
+  "eslint.run": "never",
+  "eslint.quiet": true,
+  "eslint.format.enable": false,
+  "eslint.lintTask.enable": false,
+  "javascript.suggestionActions.enabled": false
 }

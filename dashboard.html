@@ -37,7 +37,7 @@
   <!-- Main Content -->
   <div class="content">
 
-    <div class="card" style="display: flex; gap: 10px; justify-content: space-around;">
+    <div class="card card-container">
       <div class="card account">
         <h3 id="userFullName">Loading...</h3>
         <p><strong>Account Type:</strong> DEMO SAVINGS ACCOUNT</p>
@@ -52,11 +52,11 @@
 
     <div class="card points-card">
       <div class="points-summary">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div style="display: flex;flex-direction: column;align-items: center;">
+        <div class="points-summary-inner">
+          <div class="points-summary-content">
             <h2>Total Points Balance</h2>
             <div class="points-value" id="pointsValue">0</div>
-            <div class="equiv" style="color:var(--muted);font-size:13px">Equivalent: <span id="equiv">UGX 0</span></div>
+            <div class="equiv member-info">Equivalent: <span id="equiv">UGX 0</span></div>
           </div>
         </div>
       </div>
@@ -65,13 +65,13 @@
         <div class="points-actions">
           
           <button class="btn" id="addPointsBtn">ADD PTS</button>
-          <div>
+          <div class="points-input-wrapper">
             <input type="number" class="deposit-input" id="depositInput" placeholder="Enter amount...">
             <button class="btn deposit-btn" id="depositBtn">DEPOSIT</button>
           </div>
 
           <button class="btn spendBtn" id="spendBtn">SPEND PTS</button>
-          <div>
+          <div class="points-input-wrapper">
             <input type="number" class="merchant" id="merchant" placeholder="Enter merchant code...">
             <input type="number" class="spend-input" id="spendInput" placeholder="Enter amount in points...">
             <button class="btn pay-btn" id="payBtn">PAY</button>
@@ -80,7 +80,7 @@
           <button class="btn redeemBtn" id="redeemBtn">REDEEM PTS</button>
         </div>
 
-        <div style="font-size:13px;color:var(--muted)">
+        <div class="member-info">
           Member since <strong id="memberSince">—</strong>
         </div>
       </div>
@@ -90,59 +90,59 @@
       <h3>Stats</h3>
       <div class="stats">
         <div class="stat"><h4 id="statBlalnce">1000</h4><span>Balance</span></div>
-        <div class="stat"><h4 style="color: #1e8449;">200</h4><span>Redeemed (7%)</span></div>
+        <div class="stat"><h4 class="stat-success">200</h4><span>Redeemed (7%)</span></div>
         <div class="stat"><h4>50</h4><span>Bonus</span></div>
-        <div class="stat"><h4 style="color: rgb(215, 1, 1);" id="statExpense"></h4><span>Points Spent</span></div>
+        <div class="stat"><h4 class="stat-danger" id="statExpense"></h4><span>Points Spent</span></div>
       </div>
     </div>
 
     <!-- activity log -->
-    <div class="card history" style="grid-column: span 3;">
-      <h3 style="margin:0 0 10px 0">Recent activity</h3>
+    <div class="card history">
+      <h3 class="history-header">Recent activity</h3>
       <div id="historyContainer">
         <!-- transactions injected here -->
       </div>
       <!-- Monthly points spent breakdown injected by JS -->
-      <div id="monthlyBreakdown" style="margin-top:12px;font-size:13px;color:var(--muted);"></div>
+      <div id="monthlyBreakdown" class="monthly-breakdown"></div>
     </div>
 
     <div class="card">
       <h3>Farm Produce for Sale</h3>
-      <div class="produce-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px;">
+      <div class="produce-grid">
         <!-- Item 1 -->
-        <div class="objective" style="display:flex;flex-direction:column;align-items:stretch;">
-          <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=60" alt="Tomatoes" style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
-          <div style="flex:1">
-            <p style="margin:0 0 6px 0;font-weight:700">Fresh Tomatoes</p>
-            <p style="margin:0;font-size:13px">Price: <strong>50 pts @pack</strong> <small style="color:var(--muted)"> (UGX 25,000)</small></p>
-            <p style="margin:6px 0 0 0;font-size:13px">Available: <strong>3 days</strong></p>
-            <p style="margin:6px 0 0 0;font-size:13px">Buy from: <strong>Nakawa Farmers Market - Stall 12</strong></p>
+        <div class="objective product-container">
+          <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=60" alt="Tomatoes" class="product-img">
+          <div class="product-info">
+            <p class="product-title">Fresh Tomatoes</p>
+            <p class="product-price">Price: <strong>50 pts @pack</strong> <small class="price-ugx">(UGX 25,000)</small></p>
+            <p class="product-detail">Available: <strong>3 days</strong></p>
+            <p class="product-detail">Buy from: <strong>Nakawa Farmers Market - Stall 12</strong></p>
           </div>
-          <button class="btn" style="margin-top:8px; max-width: 100%;" onclick="alert('To buy Fresh Tomatoes: spend 120 pts. Ensure you have enough points.')">BUY</button>
+          <button class="btn buy-button" onclick="alert('To buy Fresh Tomatoes: spend 120 pts. Ensure you have enough points.')">BUY</button>
         </div>
 
         <!-- Item 2 -->
-        <div class="objective" style="display:flex;flex-direction:column;align-items:stretch;">
-          <img src="https://5.imimg.com/data5/BY/BR/MY-43969551/karpuram-banana-500x500.png" alt="Bananas" style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
-          <div style="flex:1">
-            <p style="margin:0 0 6px 0;font-weight:700">Ripe Bananas (bunch)</p>
-            <p style="margin:0;font-size:13px">Price: <strong>21 pts</strong> <small style="color:var(--muted)"> (UGX 10,500)</small></p>
-            <p style="margin:6px 0 0 0;font-size:13px">Available: <strong>1 week</strong></p>
-            <p style="margin:6px 0 0 0;font-size:13px">Buy from: <strong>Lubowa Agro Hub - Booth 3</strong></p>
+        <div class="objective product-container">
+          <img src="https://5.imimg.com/data5/BY/BR/MY-43969551/karpuram-banana-500x500.png" alt="Bananas" class="product-img">
+          <div class="product-info">
+            <p class="product-title">Ripe Bananas (bunch)</p>
+            <p class="product-price">Price: <strong>21 pts</strong> <small class="price-ugx">(UGX 10,500)</small></p>
+            <p class="product-detail">Available: <strong>1 week</strong></p>
+            <p class="product-detail">Buy from: <strong>Lubowa Agro Hub - Booth 3</strong></p>
           </div>
-          <button class="btn" style="margin-top:8px;background:#3a70ce; max-width: 100%;" onclick="alert('To buy Bananas: spend 45 pts.')">BUY</button>
+          <button class="btn buy-button" onclick="alert('To buy Bananas: spend 45 pts.')">BUY</button>
         </div>
 
         <!-- Item 3 -->
-        <div class="objective" style="display:flex;flex-direction:column;align-items:stretch;">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBpXGP1_dboctdp3cJNY3G3o2OEiO1u2VyW4QhUVOK3wDVe7mD0qj2O0fk6pA8MtxIkbE&usqp=CAU" alt="Maize" style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
-          <div style="flex:1">
-            <p style="margin:0 0 6px 0;font-weight:700">Dried Maize (10kg)</p>
-            <p style="margin:0;font-size:13px">Price: <strong>10 pts @kg</strong> <small style="color:var(--muted)"> (UGX 5,000)</small></p>
-            <p style="margin:6px 0 0 0;font-size:13px">Available: <strong>2 weeks</strong></p>
-            <p style="margin:6px 0 0 0;font-size:13px">Buy from: <strong>Gawaya Grain Store - Delivery available</strong></p>
+        <div class="objective product-container">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBpXGP1_dboctdp3cJNY3G3o2OEiO1u2VyW4QhUVOK3wDVe7mD0qj2O0fk6pA8MtxIkbE&usqp=CAU" alt="Maize" class="product-img">
+          <div class="product-info">
+            <p class="product-title">Dried Maize (10kg)</p>
+            <p class="product-price">Price: <strong>10 pts @kg</strong> <small class="price-ugx">(UGX 5,000)</small></p>
+            <p class="product-detail">Available: <strong>2 weeks</strong></p>
+            <p class="product-detail">Buy from: <strong>Gawaya Grain Store - Delivery available</strong></p>
           </div>
-          <button class="btn" style="margin-top:8px;background:rgba(255,166,0,0.85); max-width: 100%;" onclick="alert('To buy Dried Maize: spend 350 pts.')">BUY</button>
+          <button class="btn buy-button" onclick="alert('To buy Dried Maize: spend 350 pts.')">BUY</button>
         </div>
       </div>
     </div>
