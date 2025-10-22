@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MULIMA - Savings Vault</title>
+  <link rel="stylesheet" href="styles/vault.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+    <h2>VAULT</h2>
+    <a href="profile.html" class="profile">👤</a>
+  </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+      <li onclick="location.href='dashboard.html'">Dashboard</li>
+      <li onclick="location.href='vault.html'">Savings Vault</li>
+      <li onclick="location.href='about-us.html'">About Us</li>
+      <li onclick="location.href='login.html'">Logout</li>
+    </ul>
+  </div>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+
+  <div class="content">
+
+    <!-- Active Vaults -->
+    <div class="card vault-summary">
+      <div class="vault-header">
+        <h3>Active Vaults</h3>
+        <button class="btn create-vault-btn" onclick="showCreateVaultModal()">Create New Vault</button>
+      </div>
+      <div class="vault-stats">
+        <div class="stat">
+          <h4 id="totalLocked">UGX 0</h4>
+          <span>Total Locked</span>
+        </div>
+        <div class="stat">
+          <h4 id="totalVaults">0</h4>
+          <span>Active Vaults</span>
+        </div>
+        <div class="stat">
+          <h4 id="nextUnlock">-</h4>
+          <span>Next Unlock</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vault List -->
+    <div class="card vault-list">
+      <div id="vaultContainer">
+        <!-- Sample Vault Item -->
+        <div class="vault-item">
+          <div class="vault-info">
+            <h3>Education Fund</h3>
+            <div class="vault-details">
+              <p class="amount">UGX 2,500,000</p>
+              <p class="unlock-date">Unlocks: December 25, 2025</p>
+              <div class="progress-bar">
+                <div class="progress"></div>
+              </div>
+              <p class="time-left">94 days left</p>
+            </div>
+          </div>
+          <div class="vault-actions">
+            <button class="btn deposit-btn">Add Funds</button>
+            <button class="btn view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div id="vaultDepositModal" class="modal">
+      <div class="modal-content">
+        <h2>Deposit to Vault</h2>
+        <form id="vaultDepositForm" onsubmit="submitVaultDeposit(event)">
+          <div class="form-group">
+            <label for="vaultDepositAmount">Amount (UGX)</label>
+            <input id="vaultDepositAmount" type="number" min="1" required placeholder="Enter amount">
+          </div>
+          <div class="button-group">
+            <button type="button" class="btn cancel-btn"
+              onclick="document.getElementById('vaultDepositModal').style.display='none'">Cancel</button>
+            <button type="submit" class="btn create-btn">Deposit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div id="vaultWithdrawModal" class="modal">
+      <div class="modal-content">
+        <h2>Withdraw from Vault</h2>
+        <form id="vaultWithdrawForm" onsubmit="submitVaultWithdraw(event)">
+          <div class="form-group">
+            <label for="vaultWithdrawAmount">Amount (UGX)</label>
+            <input id="vaultWithdrawAmount" type="number" min="1" required placeholder="Enter amount">
+          </div>
+          <div class="button-group">
+            <button type="button" class="btn cancel-btn"
+              onclick="document.getElementById('vaultWithdrawModal').style.display='none'">Cancel</button>
+            <button type="submit" class="btn create-btn">Withdraw</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Vault Modal -->
+  <div id="createVaultModal" class="modal">
+    <div class="modal-content">
+      <h2>Create New Vault</h2>
+      <form id="vaultForm">
+        <div class="form-group">
+          <label for="vaultName">Vault Name</label>
+          <input type="text" id="vaultName" required placeholder="e.g., Education Fund">
+        </div>
+        <div class="form-group">
+          <label for="targetAmount">Target Amount (UGX)</label>
+          <input type="number" id="targetAmount" required placeholder="Enter target amount">
+        </div>
+        <div class="form-group">
+          <label for="unlockDate">Unlock Date</label>
+          <input type="date" id="unlockDate" required>
+        </div>
+        <div class="form-group">
+          <label for="initialDeposit">Initial Deposit (UGX) <small>(optional)</small></label>
+          <input type="number" id="initialDeposit" min="0" placeholder="Enter initial deposit (optional)">
+        </div>
+        <div class="button-group">
+          <button type="button" class="btn cancel-btn" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn create-btn">Create Vault</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="scripts/vault.js"></script>
+  <script>
+    function toggleSidebar() {
+      document.querySelector('.sidebar').classList.toggle('active');
+      document.querySelector('.overlay').classList.toggle('active');
+      document.body.classList.toggle('no-scroll');
+    }
+
+    function showCreateVaultModal() {
+      document.getElementById('createVaultModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('createVaultModal').style.display = 'none';
+    }
+
+    // Set minimum date to today for unlock date input
+    document.getElementById('unlockDate').min = new Date().toISOString().split('T')[0];
+
+    // Close modal when clicking outside
+    window.onclick = function (event) {
+      if (event.target == document.getElementById('createVaultModal')) {
+        closeModal();
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('vaultForm').onsubmit = function (e) {
+      e.preventDefault();
+      const name = document.getElementById('vaultName').value.trim();
+      const target = Number(document.getElementById('targetAmount').value);
+      const unlock = document.getElementById('unlockDate').value;
+      const initial = Number(document.getElementById('initialDeposit').value) || 0;
+
+      if (!name || !unlock || isNaN(target) || target <= 0) {
+        return alert('Please provide a valid vault name, target amount and unlock date');
+      }
+
+      // createVault is exposed by scripts/vault.js
+      if (window.createVault) {
+        window.createVault({
+          name,
+          targetAmount: target,
+          unlockDate: unlock,
+          initialDeposit: initial
+        });
+      } else {
+        alert('Vault support not available');
+      }
+
+      // reset form and close modal
+      document.getElementById('vaultForm').reset();
+      closeModal();
+    }
+  </script>
+</body>
+
+</html>
