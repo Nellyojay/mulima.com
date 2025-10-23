@@ -52,23 +52,8 @@ export function renderVaultSideBar() {
     document.body.classList.toggle('no-scroll');
   }
 
-  function showCreateVaultModal() {
-    document.getElementById('createVaultModal').style.display = 'flex';
-  }
-
-  function closeModal() {
-    document.getElementById('createVaultModal').style.display = 'none';
-  }
-
   // Set minimum date to today for unlock date input
   document.getElementById('unlockDate').min = new Date().toISOString().split('T')[0];
-
-  // Close modal when clicking outside
-  window.onclick = function (event) {
-    if (event.target == document.getElementById('createVaultModal')) {
-      closeModal();
-    }
-  }
 
   // Handle form submission
   document.getElementById('vaultForm').onsubmit = function (e) {

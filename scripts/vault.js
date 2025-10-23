@@ -28,6 +28,22 @@ function renderVault(){
     return v;
   }
 
+  window.showCreateVaultModal = showCreateVaultModal
+  function showCreateVaultModal() {
+    document.getElementById('createVaultModal').style.display = 'flex';
+  }
+
+  window.closeModal = closeModal
+  function closeModal() {
+    document.getElementById('createVaultModal').style.display = 'none';
+  }
+  // Close modal when clicking outside
+  window.onclick = function (event) {
+    if (event.target == document.getElementById('createVaultModal')) {
+      closeModal();
+    }
+  }
+
   window.renderVaultsOnPage = function(){
     const container = document.getElementById('vaultContainer');
     const totalLockedEl = document.getElementById('totalLocked');
