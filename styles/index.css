@@ -81,7 +81,7 @@ nav a {
   margin-inline: 10px;
   text-decoration: none;
   font-weight: bold;
-  transition: color 0.3s ease;
+  transition: 0.3s ease;
   
   @media (max-width:800px) {
     font-size: .8rem;
@@ -89,8 +89,7 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--light);
-  transform: scale(1.5);
+  color: var(--primary-dark);
 }
 
 @media (max-width: 500px) {

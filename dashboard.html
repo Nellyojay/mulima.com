@@ -13,7 +13,7 @@
   <div class="navbar">
     <span class="menu-btn" onclick="toggleSidebar()">☰</span>
     <h2>
-      <a href="index.html">MULIMA</a>
+      DASHBOARD
     </h2>
     <a href="profile.html" class="profile">👤</a>
   </div>
@@ -21,13 +21,9 @@
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <ul>
-      <li>Account Overview</li>
-      <li>Transactions</li>
-      <li>Payouts</li>
-      <li>Rewards Hub</li>
-      <li>Infinity Points</li>
-      <li>Journaling</li>
-      <li>FAQ</li>
+      <li onclick="location.href='dashboard.html'">Dashboard</li>
+      <li onclick="location.href='vault.html'">Vault</li>
+      <li onclick="location.href='login.html'">Logout</li>
     </ul>
   </div>
 
@@ -66,7 +62,7 @@
           
           <button class="btn" id="addPointsBtn">ADD PTS</button>
           <div class="points-input-wrapper">
-            <input type="number" class="deposit-input" id="depositInput" placeholder="Enter amount...">
+            <input type="number" class="deposit-input" id="depositInput" placeholder="Enter amount in UGX...">
             <button class="btn deposit-btn" id="depositBtn">DEPOSIT</button>
           </div>
 

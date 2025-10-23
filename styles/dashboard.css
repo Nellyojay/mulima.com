@@ -191,9 +191,10 @@ h2{
   letter-spacing: 5px;
   color: var(--white);
   border: solid var(--muted) 2px;
-  padding: 5px 20px 5px 20px;
+  padding: 5px 20px;
   border-radius: 10px;
-
+  margin: 10px 0;
+  font-size: 1.2rem;
 }
 
 .card {
@@ -202,22 +203,35 @@ h2{
   border-radius: 12px;
   padding: 15px;
   margin-bottom: 15px;
-  width: 70%;
+  width: 60%;
   box-shadow: 1px 1px 10px black;
-}
 
-@media (max-width: 800px) {
-  .card {
-    width: 95%;
+  p {
+    margin: 0; 
+    font-size: 12px;
   }
+
+  @media (max-width:800px) {
+    width: 95%;
+
+    .account p {
+      font-size: 10px;
+    }
+  }
+  
 }
 
 .account{
-  box-shadow: inset 2px 2px 2px var(--primary);
+  box-shadow: inset 2px 2px 2px var(--primary-dark);
+  background: #ffffff1a;
+  padding: 8px;
+  margin: 0;
 }
 
-.card h3 { margin: 0 0 10px; font-size: 16px; }
-.card p { margin: 5px 0; font-size: 14px; }
+.card h3 { 
+  margin: 0 0 10px; 
+  font-size: 16px; 
+}
 
 .points-card{
   grid-column: span 2;
