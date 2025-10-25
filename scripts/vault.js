@@ -23,10 +23,7 @@ function renderVault(){
       status: new Date(unlockDate) <= new Date() ? 'unlocked' : 'locked'
     };
 
-    // Initialize vaults array if it doesn't exist
-    if (!currentUser.vaults) {
-      currentUser.vaults = [];
-    }
+    currentUser.vaults = currentUser.vaults || [];
 
     currentUser.vaults.push(v);
     saveToStorage();
