@@ -15,13 +15,19 @@ function renderVault(){
   window.createVault = function({ name, targetAmount, unlockDate, initialDeposit }){
     const v = {
       id: 'vault_' + Date.now(),
-      name: name || 'Vault',
+      name: name || 'Vault', 
       targetAmount: Number(targetAmount) || 0,
       currentAmount: Number(initialDeposit) || 0,
       unlockDate: new Date(unlockDate).toISOString(),
       createdAt: new Date().toISOString(),
       status: new Date(unlockDate) <= new Date() ? 'unlocked' : 'locked'
     };
+
+    // Initialize vaults array if it doesn't exist
+    if (!currentUser.vaults) {
+      currentUser.vaults = [];
+    }
+
     currentUser.vaults.push(v);
     saveToStorage();
     renderVaultsOnPage();
